@@ -894,6 +894,7 @@ admin.customer.customer_management: Customers
 admin.customer.customer_list: All Customers
 admin.customer.customer_registration: Add Customer
 admin.customer.customer_address_registration: Register Delivery Addresses
+admin.customer.charge_category_management: Management Charge Category
 
 # Labels / Messages
 admin.customer.customer_id: Customer ID

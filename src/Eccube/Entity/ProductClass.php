@@ -13,6 +13,9 @@
 
 namespace Eccube\Entity;
 
+use Customize\Entity\XtbProductClassRank;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 if (!class_exists('\Eccube\Entity\ProductClass')) {
@@ -332,6 +335,16 @@ if (!class_exists('\Eccube\Entity\ProductClass')) {
          * })
          */
         private $Creator;
+
+        /**
+         * @ORM\OneToMany(targetEntity="Customize\Entity\XtbProductClassRank", mappedBy="ProductClass")
+         */
+        private $ProductClassRanks;
+
+        public function __construct()
+        {
+            $this->ProductClassRanks = new ArrayCollection();
+        }
 
         public function __clone()
         {
@@ -822,6 +835,37 @@ if (!class_exists('\Eccube\Entity\ProductClass')) {
         public function getPointRate()
         {
             return $this->point_rate;
+        }
+
+        /**
+         * @return Collection|XtbProductClassRank[]
+         */
+        public function getProductClassRanks(): Collection
+        {
+            return $this->ProductClassRanks;
+        }
+
+        public function addProductClassRank(XtbProductClassRank $productClassRank): self
+        {
+            if (!$this->ProductClassRanks->contains($productClassRank)) {
+                $this->ProductClassRanks[] = $productClassRank;
+                $productClassRank->setProductClass($this);
+            }
+
+            return $this;
+        }
+
+        public function removeProductClassRank(XtbProductClassRank $productClassRank): self
+        {
+            if ($this->ProductClassRanks->contains($productClassRank)) {
+                $this->ProductClassRanks->removeElement($productClassRank);
+                // set the owning side to null (unless already changed)
+                if ($productClassRank->getProductClass() === $this) {
+                    $productClassRank->setProductClass(null);
+                }
+            }
+
+            return $this;
         }
     }
 }
