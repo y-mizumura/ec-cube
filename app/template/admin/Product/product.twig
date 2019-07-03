@@ -609,22 +609,14 @@ file that was distributed with this source code.
                         </div>
                         <div class="collapse show ec-cardCollapse" id="freeArea">
                             <div class="card-body">
-                              
-                              {# 右を取り出して → 左にいっこずついれる #}
-                              {# Classのループ #}
-                                {# {% for ProductClass in Product.ProductClasses %}  count=1 #}
-                                
+                                {# 右を取り出して → 左にいっこずついれる #} 
                                 {% for child in form.class.product_class_ranks %}
-                                  
-                                 
                                     <div class="row">
                                         <div class="col-3">
                                             <span>{{ child.vars.data.CustomerRank.name }}</span>
                                         </div>
                                         <div class="col mb-2">
-                                            
                                             <div>
-                                               
                                                 {{ form_widget(child.price02) }}
                                                 {{ form_errors(child.price02) }}
                                             </div>

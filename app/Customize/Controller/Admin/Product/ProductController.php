@@ -95,6 +95,15 @@ class ProductController extends ParentClass
             $ProductStock = new ProductStock();
             $ProductClass->setProductStock($ProductStock);
             $ProductStock->setProductClass($ProductClass);
+            
+            // 追記
+            // $ProductClassに「販売価格＜会員ランク別＞」を追加
+            $CustomerRanks = $this->xtbCustomerRankRepository->findAll();
+            foreach($CustomerRanks as $CustomerRank) {
+              $ProductClassRank = new XtbProductClassRank($CustomerRank);
+              $ProductClass->addProductClassRank($ProductClassRank);
+            }
+            
         } else {
             $Product = $this->productRepository->find($id);
             if (!$Product) {
@@ -119,38 +128,6 @@ class ProductController extends ParentClass
                 $ProductStock = $ProductClass->getProductStock();
             }
         }
-        
-        // FormType: RankPriceの生成 START
-        // 会員ランクテーブル 全件取得
-        $CustomerRanks = $this->xtbCustomerRankRepository->findAll();
-        
-        // 会員別ランクの枠表示用
-        // 会員ランクマスタを取得
-        $Ranks = $this->xtbCustomerRankRepository->findAll();
-        
-        foreach($Product->getProductClasses() as $ProductClass) {
-          foreach($Ranks as $Rank) {
-            
-            $rank_ids = array_map( function($ProductClassRank){
-                          return $ProductClassRank->getId();
-                        },$ProductClass->getProductClassRanks()->toArray());
-            
-            // 対象の商品クラスオブジェクトに紐づくProductClassRankオブジェクトが存在しない場合、
-            // 新規にProductClassRankオブジェクトをフォームに追加する。
-            // ※Dataがある場合、Doctorineが自動でデータのヒモ付をおこなう。
-            if ( !in_array($Rank->getId(), $rank_ids)) {
-               
-              // 商品クラスランクデータが必要
-                $ProductClassRank = new XtbProductClassRank();
-                $ProductClassRank->setProductClass($ProductClass);
-                $ProductClassRank->setCustomerRank($Rank);
-                $ProductClass->addProductClassRank($ProductClassRank);
-            }
-            
-          }
-        }
-        
-        // FormType: RankPriceの生成 END
 
         $builder = $this->formFactory
             ->createBuilder(ProductType::class, $Product);
@@ -173,18 +150,7 @@ class ProductController extends ParentClass
 
         if (!$has_class) {
             $ProductClass->setStockUnlimited($ProductClass->isStockUnlimited());
-            
-            // 【追加】
-//            var_dump($ProductClass->getProductClassRanks());
-            
-            $form['class']->setData($ProductClass);
-            
-            // 【追加】test
-//            $ProductClassRank_test = new XtbProductClassRank();
-//            $ProductClassRank_test->setPrice02(10000);
-//            $ProductClassRank_test->setCustomerRank($this->xtbCustomerRankRepository->find(1));
-//            $ProductClassRank_test->setProductClass($this->productClassRepository->find(26));
-//            $form['class']['rank_prices']->setData($ProductClassRank_test);
+            $form['class']->setData($ProductClass);   
         }
 
         // ファイルの登録
@@ -421,7 +387,6 @@ class ProductController extends ParentClass
         $ChoicedCategoryIds = array_map(function ($Category) {
             return $Category->getId();
         }, $form->get('Category')->getData());
-        
 
         return [
             'Product' => $Product,

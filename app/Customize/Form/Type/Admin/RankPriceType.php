@@ -33,6 +33,7 @@ class RankPriceType extends AbstractType
     {
         $builder->add('price02', PriceType::class, [
                'label' => false,
+               'required' => false, // 任意項目
         ]);
     }
     

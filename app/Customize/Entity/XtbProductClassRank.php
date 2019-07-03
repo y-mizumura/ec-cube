@@ -30,9 +30,14 @@ class XtbProductClassRank extends \Eccube\Entity\AbstractEntity
     private $CustomerRank;
 
     /**
-     * @ORM\Column(type="decimal", precision=12, scale=2)
+     * @ORM\Column(type="decimal", precision=12, scale=2, nullable=true)
      */
     private $price02;
+    
+    public function __construct(?XtbCustomerRank $CustomerRank)
+    {
+        $this->CustomerRank = $CustomerRank;
+    }
 
     public function getId(): ?int
     {
