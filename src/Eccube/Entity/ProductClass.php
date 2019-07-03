@@ -337,7 +337,7 @@ if (!class_exists('\Eccube\Entity\ProductClass')) {
         private $Creator;
 
         /**
-         * @ORM\OneToMany(targetEntity="Customize\Entity\XtbProductClassRank", mappedBy="ProductClass", cascade={"persist"})
+         * @ORM\OneToMany(targetEntity="Customize\Entity\XtbProductClassRank", mappedBy="ProductClass", cascade={"persist","remove"})
          */
         private $ProductClassRanks;
 
