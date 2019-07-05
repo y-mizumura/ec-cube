@@ -591,43 +591,44 @@ file that was distributed with this source code.
                     </div>
                                 
                     {# 会員ランク 追加 #}
-                    <div class="card rounded border-0 mb-4">
-                        <div class="card-header">
-                            <div class="row">
-                                <div class="col-8">
-                                    <div class="d-inline-block" data-tooltip="true" data-placement="top">
-                                        <span class="card-title">{{ 'x.admin.product.customer_rank_title'|trans }}</span>
+                    {% if has_class == false %}
+                        <div class="card rounded border-0 mb-4">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div class="d-inline-block" data-tooltip="true" data-placement="top">
+                                            <span class="card-title">{{ 'x.admin.product.customer_rank_title'|trans }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 text-right">
+                                        <a data-toggle="collapse" href="#freeArea" aria-expanded="false"
+                                           aria-controls="freeArea">
+                                            <i class="fa fa-angle-up fa-lg"></i>
+                                        </a>
                                     </div>
                                 </div>
-                                <div class="col-4 text-right">
-                                    <a data-toggle="collapse" href="#freeArea" aria-expanded="false"
-                                       aria-controls="freeArea">
-                                        <i class="fa fa-angle-up fa-lg"></i>
-                                    </a>
-                                </div>
                             </div>
-                        </div>
-                        <div class="collapse show ec-cardCollapse" id="freeArea">
-                            <div class="card-body">
-                                {# 右を取り出して → 左にいっこずついれる #} 
-                                {% for child in form.class.product_class_ranks %}
-                                    <div class="row">
-                                        <div class="col-3">
-                                            <span>{{ child.vars.data.CustomerRank.name }}</span>
-                                        </div>
-                                        <div class="col mb-2">
-                                            <div>
-                                                {{ form_widget(child.price02) }}
-                                                {{ form_errors(child.price02) }}
+                            <div class="collapse show ec-cardCollapse" id="freeArea">
+                                <div class="card-body">
+                                    {# 右を取り出して → 左にいっこずついれる #} 
+                                    {% for child in form.class.product_class_ranks %}
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <span>{{ child.vars.data.CustomerRank.name }}</span>
+                                            </div>
+                                            <div class="col mb-2">
+                                                <div>
+                                                    {{ form_widget(child.price02) }}
+                                                    {{ form_errors(child.price02) }}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                {% endfor %}
+                                    {% endfor %}
 
+                                </div>
                             </div>
                         </div>
-                    </div>
-                                
+                    {% endif %}
                                 
                     {% if id is not null %}
                         <div class="card rounded border-0 mb-4">

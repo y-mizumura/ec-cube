@@ -4,12 +4,12 @@ namespace Customize\Form\Extension;
 
 use Customize\Repository\XtbCustomerRankRepository;
 use Customize\Form\Type\Admin\RankPriceType;
-use Eccube\Form\Type\Admin\ProductClassType;
+use Eccube\Form\Type\Admin\ProductClassEditType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class ProductClassExtension extends AbstractTypeExtension
+class ProductClassEditExtension extends AbstractTypeExtension
 {
     
     protected $xtbCustomerRankRepository;
@@ -30,8 +30,7 @@ class ProductClassExtension extends AbstractTypeExtension
                 'entry_type' => RankPriceType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
-                'prototype' => true,
-//                'mapped' => false, // ProductClassEntityには「rank_prices」が存在しないため、falseとする。
+                'prototype' => true
             ]);
     }
 
@@ -40,6 +39,6 @@ class ProductClassExtension extends AbstractTypeExtension
      */
     public function getExtendedType()
     {
-      return ProductClassType::class;
+      return ProductClassEditType::class;
     }
 }
