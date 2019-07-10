@@ -1,0 +1,27 @@
+{#
+  出品者登録申請 完了画面
+#}
+{% extends 'default_frame.twig' %}
+
+{% set body_class = 'registration_page' %}
+
+{% block main %}
+    <div class="ec-role">
+        <div class="ec-pageHeader">
+            <h1>出品者登録申請 申請完了</h1>
+        </div>
+    </div>
+    <div class="ec-registerCompleteRole">
+        <div class="ec-off3Grid ec-text-ac">
+            <div class="ec-off3Grid__cell">
+                <div class="ec-reportHeading">
+                    <h2>登録申請ありがとうございます。</h2>
+                </div>
+                <p class="ec-reportDescription">弊社にて申請内容を確認後、メールにてご返信いたします。<br/>今しばらくお待ち下さい。</p>
+                <div class="ec-off4Grid">
+                    <div class="ec-off4Grid__cell"><a class="ec-blockBtn--cancel" href="{{ url('homepage') }}">{{ 'common.go_to_top'|trans }}</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
