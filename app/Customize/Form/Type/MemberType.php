@@ -3,19 +3,15 @@
 namespace Customize\Form\Type;
 
 use Eccube\Common\EccubeConfig;
-use Eccube\Entity\Master\Authority;
-use Eccube\Entity\Master\Work;
-use Eccube\Entity\Member;
 use Eccube\Repository\MemberRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\AbstractType;
 use Eccube\Form\Type\RepeatedPasswordType;
+use Eccube\Form\Type\RepeatedEmailType;
+
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormError;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -27,22 +23,13 @@ class MemberType extends AbstractType
     protected $eccubeConfig;
 
     /**
-     * @var MemberRepository
-     */
-    protected $memberRepository;
-
-    /**
      * MemberType constructor.
      *
      * @param EccubeConfig $eccubeConfig
      * @param MemberRepository $memberRepository
      */
-    public function __construct(
-        EccubeConfig $eccubeConfig,
-        MemberRepository $memberRepository
-    ) {
+    public function __construct(EccubeConfig $eccubeConfig) {
         $this->eccubeConfig = $eccubeConfig;
-        $this->memberRepository = $memberRepository;
     }
 
     /**
@@ -56,16 +43,6 @@ class MemberType extends AbstractType
                     new Assert\NotBlank(),
                     new Assert\Length(['max' => $this->eccubeConfig['eccube_stext_len']]),
                 ],
-            ])
-            ->add('department', ChoiceType::class, [
-                'choices' => [
-                        'クリエーター' => '出品者（クリエーター）',
-                        'ギャラリーオーナー' => '出品者（ギャラリーオーナー）',
-                        'その他' => '出品者（その他）'
-                    ],
-                'constraints' => [
-                        new Assert\NotBlank()
-                    ]
             ])
             ->add('login_id', TextType::class, [
                 'constraints' => [
@@ -87,16 +64,39 @@ class MemberType extends AbstractType
                 'second_options' => [
                     'label' => 'admin.setting.system.member.password',
                 ],
+            ])
+            ->add('email', RepeatedEmailType::class)
+            ->add('department', TextType::class, [
+                'constraints' => [
+                    new Assert\NotBlank(),
+                    new Assert\Length(['max' => $this->eccubeConfig['eccube_stext_len']]),
+                ],
+            ])
+            ->add('type', ChoiceType::class, [
+                'choices' => [
+                        'クリエーター' => '＜クリエーター＞',
+                        'ギャラリーオーナー' => '＜ギャラリーオーナー＞',
+                        'その他' => '＜その他＞'
+                    ],
+                'constraints' => [
+                        new Assert\NotBlank()
+                    ]
+            ])
+            ->add('exhibitor_info', TextareaType::class, [
+                'constraints' => [
+                    new Assert\NotBlank(),
+                    new Assert\Length(['max' => $this->eccubeConfig['eccube_stext_len']]),
+                ],
             ]);
     }
-
+    
     /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'Eccube\Entity\Member',
+            'data_class' => 'Customize\Form\Model\Exhibitor',
         ]);
     }
 

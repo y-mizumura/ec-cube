@@ -2,20 +2,18 @@
 
 namespace Customize\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 use Eccube\Controller\AbstractController;
 use Eccube\Entity\Member;
 use Eccube\Repository\MemberRepository;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use Eccube\Repository\Master\AuthorityRepository;
 
 use Customize\Form\Type\MemberType;
-
-use Eccube\Repository\Master\AuthorityRepository;
+use Customize\Form\Model\Exhibitor;
 
 class MemberController extends AbstractController
 {
@@ -58,16 +56,22 @@ class MemberController extends AbstractController
      */
     public function create(Request $request)
     {
-      // 新規メンバー作成
+      // 登録用のメンバーを作成
       $Member = new Member();
+      $Exhibitor = new Exhibitor();
       
       // フォーム作成
-      $builder = $this->formFactory->createBuilder(MemberType::class, $Member);
-
+      $builder = $this->formFactory->createBuilder(MemberType::class, $Exhibitor);
       $form = $builder->getForm();
       $form->handleRequest($request);
-
+      
       if ($form->isSubmitted() && $form->isValid()) {
+          
+          // 登録用メンバーにデータを設定
+          $Member->setLoginId($Exhibitor->getLoginId());
+          $Member->setName($Exhibitor->getName());
+          $Member->setPassword($Exhibitor->getPassword());
+          $Member->setDepartment($Exhibitor->getDepartment().$Exhibitor->getType());
           
           // 登録処理
           $encoder = $this->encoderFactory->getEncoder($Member);

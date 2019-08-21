@@ -19,6 +19,7 @@
             <div class="ec-off1Grid__cell">
                 <form name="member_form" role="form" id="member_form" method="post" action="" novalidate>
                     {{ form_widget(form._token) }}
+                    <h2>出品者</h2>
                     <div class="ec-borderedDefs">
                         <dl>
                             <dt>名前</dt>
@@ -26,15 +27,6 @@
                                 <div class="ec-halfInput{{ has_errors(form.name, form.name) ? ' error'}}">
                                     {{ form_widget(form.name) }}
                                     {{ form_errors(form.name) }}
-                                </div>
-                            </dd>
-                        </dl>
-                        <dl>
-                            <dt>出品者タイプ</dt>
-                            <dd>
-                                <div class="ec-select{{ has_errors(form.department, form.department) ? ' error'}}">
-                                    {{ form_widget(form.department) }}
-                                    {{ form_errors(form.department) }}
                                 </div>
                             </dd>
                         </dl>
@@ -51,20 +43,81 @@
                             <dt>パスワード</dt>
                             <dd>
                                 <div class="ec-halfInput{{ has_errors(form.password.first, form.password.first) ? ' error'}}">
-                                    {{ form_widget(form.password.first, { type : 'password'}) }}
+                                    {{ form_widget(form.password.first, { 
+                                        'attr': { 'placeholder': 'common.password_sample'|trans({ '%min%': eccube_config.eccube_password_min_len, '%max%': eccube_config.eccube_password_max_len }) },
+                                        'type' : 'password'
+                                    }) }}
                                     {{ form_errors(form.password.first) }}
                                 </div>
-                            </dd>
-                        </dl>
-                        {# パスワード(確認) #}
-                        <dl>
-                            <dt>パスワード(確認)</dt>
-                            <dd>
                                 <div class="ec-halfInput{{ has_errors(form.password.second, form.password.second) ? ' error'}}">
-                                    {{ form_widget(form.password.second, { type : 'password'}) }}
+                                    {{ form_widget(form.password.second, { 
+                                        'attr': { 'placeholder': 'common.repeated_confirm'|trans },
+                                        'type' : 'password'
+                                     }) }}
                                     {{ form_errors(form.password.second) }}
                                 </div>
                             </dd>
+                        </dl>
+                        <dl>
+                            <dt>メールアドレス</dt>
+                            <dd>
+                                <div class="ec-input{{ has_errors(form.email.first) ? ' error' }}">
+                                    {{ form_widget(form.email.first, { 'attr': { 'placeholder': 'common.mail_address_sample' }}) }}
+                                    {{ form_errors(form.email.first) }}
+                                </div>
+                                <div class="ec-input{{ has_errors(form.email.second) ? ' error' }}">
+                                    {{ form_widget(form.email.second, { 'attr': { 'placeholder': 'common.repeated_confirm' }}) }}
+                                    {{ form_errors(form.email.second) }}
+                                </div>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>所属ギャラリー</dt>
+                            <dd>
+                                <div class="ec-halfInput{{ has_errors(form.department, form.department) ? ' error'}}">
+                                    {{ form_widget(form.department) }}
+                                    {{ form_errors(form.department) }}
+                                </div>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>出品者タイプ</dt>
+                            <dd>
+                                <div class="ec-select{{ has_errors(form.type, form.type) ? ' error'}}">
+                                    {{ form_widget(form.type) }}
+                                    {{ form_errors(form.type) }}
+                                </div>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>出品者情報</dt>
+                            <dd>
+                                <div class="ec-select{{ has_errors(form.exhibitor_info, form.exhibitor_info) ? ' error'}}">
+                                    {{ form_widget(form.exhibitor_info, { 'attr': { 'placeholder': "出品者の情報をご記入ください。登録の審査に使用します。" }}) }}
+                                    {{ form_errors(form.exhibitor_info) }}
+                                </div>
+                            </dd>
+                        </dl>
+                    </div>
+                    <h2>クリエーター</h2>
+                    <div class="ec-borderedDefs">
+                        <dl>
+                            <dt>名前</dt>
+                            {#<dd>
+                                <div class="ec-select{{ has_errors(form.exhibitor_info, form.exhibitor_info) ? ' error'}}">
+                                    {{ form_widget(form.exhibitor_info, { 'attr': { 'placeholder': "出品者の情報をご記入ください。登録の審査に使用します。" }}) }}
+                                    {{ form_errors(form.exhibitor_info) }}
+                                </div>
+                            </dd>#}
+                        </dl>
+                        <dl>
+                            <dt>プロフィール</dt>
+                            {#<dd>
+                                <div class="ec-select{{ has_errors(form.exhibitor_info, form.exhibitor_info) ? ' error'}}">
+                                    {{ form_widget(form.exhibitor_info, { 'attr': { 'placeholder': "出品者の情報をご記入ください。登録の審査に使用します。" }}) }}
+                                    {{ form_errors(form.exhibitor_info) }}
+                                </div>
+                            </dd>#}
                         </dl>
                     </div>
                     <div class="ec-registerRole__actions">
