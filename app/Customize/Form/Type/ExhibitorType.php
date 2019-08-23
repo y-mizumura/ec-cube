@@ -3,19 +3,20 @@
 namespace Customize\Form\Type;
 
 use Eccube\Common\EccubeConfig;
-use Eccube\Repository\MemberRepository;
 use Eccube\Form\Type\RepeatedPasswordType;
 use Eccube\Form\Type\RepeatedEmailType;
+use Customize\Form\Type\CreatorType;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class MemberType extends AbstractType
+class ExhibitorType extends AbstractType
 {
     /**
      * @var EccubeConfig
@@ -23,10 +24,9 @@ class MemberType extends AbstractType
     protected $eccubeConfig;
 
     /**
-     * MemberType constructor.
+     * ExhibitorType constructor.
      *
      * @param EccubeConfig $eccubeConfig
-     * @param MemberRepository $memberRepository
      */
     public function __construct(EccubeConfig $eccubeConfig) {
         $this->eccubeConfig = $eccubeConfig;
@@ -87,6 +87,15 @@ class MemberType extends AbstractType
                     new Assert\NotBlank(),
                     new Assert\Length(['max' => $this->eccubeConfig['eccube_stext_len']]),
                 ],
+            ])
+            // クリエーター情報
+            ->add('Creators', CollectionType::class, [
+                'required' => true,
+                'entry_type' => CreatorType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'prototype' => true,
+//                'mapped' => false, // ProductClassEntityには「rank_prices」が存在しないため、falseとする。
             ]);
     }
     

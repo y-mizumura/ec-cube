@@ -21,8 +21,10 @@ class Exhibitor {
 
     private $department;
     
-    private $exhibitor_info;   
+    private $exhibitor_info;
     
+    private $Creators;
+        
     function getName() {
       return $this->name;
     }
@@ -49,6 +51,10 @@ class Exhibitor {
     
     function getExhibitorInfo() {
       return $this->exhibitor_info;
+    }
+    
+    function getCreators() {
+      return $this->Creators;
     }
 
     function setName($name) {
@@ -77,6 +83,16 @@ class Exhibitor {
     
     function setExhibitorInfo($exhibitor_info) {
       $this->exhibitor_info = $exhibitor_info;
-    } 
+    }
+    
+    function setCreators($Creators) {
+//      $this->Creators = $Creators;
+      foreach ($Creators as $Creator) {
+        $c = new Creator();
+        $c->name = $Creator->id;
+        $c->info = $Creator->name;
+        $this->Creators[] = $c;
+      }
+    }
     
 }

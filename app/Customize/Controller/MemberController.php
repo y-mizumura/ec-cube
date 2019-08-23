@@ -12,7 +12,7 @@ use Eccube\Entity\Member;
 use Eccube\Repository\MemberRepository;
 use Eccube\Repository\Master\AuthorityRepository;
 
-use Customize\Form\Type\MemberType;
+use Customize\Form\Type\ExhibitorType;
 use Customize\Form\Model\Exhibitor;
 
 class MemberController extends AbstractController
@@ -61,7 +61,7 @@ class MemberController extends AbstractController
       $Exhibitor = new Exhibitor();
       
       // フォーム作成
-      $builder = $this->formFactory->createBuilder(MemberType::class, $Exhibitor);
+      $builder = $this->formFactory->createBuilder(ExhibitorType::class, $Exhibitor);
       $form = $builder->getForm();
       $form->handleRequest($request);
       
