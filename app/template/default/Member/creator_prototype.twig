@@ -1,5 +1,3 @@
-
-
 <dl>
     <dt>名前</dt>
     <dd>
@@ -12,9 +10,9 @@
 <dl>
     <dt>プロフィール</dt>
     <dd>
-        <div class="ec-select{{ has_errors(form.info, form.info) ? ' error'}}">
-            {{ form_widget(form.info, { 'attr': { 'placeholder': "クリエーターのプロフィールをご記入ください。" }}) }}
-            {{ form_errors(form.info) }}
+        <div class="ec-select{{ has_errors(form.profile, form.profile) ? ' error'}}">
+            {{ form_widget(form.profile, { 'attr': { 'placeholder': "クリエーターのプロフィールをご記入ください。" }}) }}
+            {{ form_errors(form.profile) }}
         </div>
     </dd>
 </dl>

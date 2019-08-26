@@ -101,9 +101,9 @@
                     </div>
                     <h2>◆クリエーター情報</h2>
                     <div id="creator-fields" class="ec-borderedDefs"
-                            data-prototype="{% filter escape %}{{ include('Member/creator_info_prototype.twig', {'form': form.Creators.vars.prototype}) }}{% endfilter %}">
+                            data-prototype="{% filter escape %}{{ include('Member/creator_prototype.twig', {'form': form.Creators.vars.prototype}) }}{% endfilter %}">
                         {% for child in form.Creators %}
-                            {{ include('Member/creator_info_prototype.twig', {'form': child}) }}
+                            {{ include('Member/creator_prototype.twig', {'form': child}) }}
                         {% endfor %}
                     </div>
                     <div class="ec-registerRole__actions">

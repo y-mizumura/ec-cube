@@ -39,13 +39,12 @@ class CreatorType extends AbstractType {
                     new Assert\Length(['max' => $this->eccubeConfig['eccube_stext_len']]),
                 ],
             ])
-            ->add('info', TextareaType::class, [
+            ->add('profile', TextareaType::class, [
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Length(['max' => $this->eccubeConfig['eccube_stext_len']]),
                 ],
             ]);
-
     }
     
     /**
