@@ -100,36 +100,17 @@
                         </dl>
                     </div>
                     <h2>◆クリエーター情報</h2>
-                    <div id="email-fields-list" 
-                            data-prototype="{{ form_widget(form.Creators.vars.prototype)|e }}"
-                            data-widget-tags="{{ '<dl></dl>'|e }}"
-                            class="ec-borderedDefs">
-                      {% for form_Creator in form.Creators %}
-                          {{ form_errors(form_Creator) }}
-                          {{ form_widget(form_Creator) }}
-                          {#<dl>
-                              <dt>名前</dt>
-                              <dd>
-                                <div class="ec-halfInput{{ has_errors(form_Creator.name, form_Creator.name) ? ' error'}}">
-                                    {{ form_widget(form_Creator.name) }}
-                                    {{ form_errors(form_Creator.name) }}
-                                </div>
-                              </dd>
-                          </dl>
-                          <dl>
-                              <dt>プロフィール</dt>
-                              <dd>
-                                  <div class="ec-select{{ has_errors(form_Creator.info, form_Creator.info) ? ' error'}}">
-                                      {{ form_widget(form_Creator.info, { 'attr': { 'placeholder': "クリエーターのプロフィールをご記入ください。" }}) }}
-                                      {{ form_errors(form_Creator.info) }}
-                                  </div>
-                              </dd>
-                          </dl>#}
-                      {% endfor %}
+                    <div id="creator-fields" class="ec-borderedDefs"
+                            data-prototype="{% filter escape %}{{ include('Member/creator_info_prototype.twig', {'form': form.Creators.vars.prototype}) }}{% endfilter %}">
+                        {% for child in form.Creators %}
+                            {{ include('Member/creator_info_prototype.twig', {'form': child}) }}
+                        {% endfor %}
                     </div>
-                    <div class="ec-off4Grid">
-                        <div style="margin-left: 33.33333%;">
-                            <button type="button" class="ec-blockBtn--cancel add-another-collection-widget" data-list="#email-fields-list">＋クリエーター情報を追加する</button>
+                    <div class="ec-registerRole__actions">
+                        <div class="ec-off4Grid">
+                            <div class="ec-off4Grid__cell">
+                                <button type="button" class="ec-blockBtn--cancel add-another-collection-widget" data-list="#creator-fields">＋クリエーター情報を追加する</button>
+                            </div>
                         </div>
                     </div>
                     <div class="ec-registerRole__actions">
@@ -145,28 +126,38 @@
     </div>
     <script>
         jQuery(document).ready(function () {
-            // 「Add another email」ボタンがクリックされた場合に実行
+            var collectionHolder = $('#creator-fields');
+            var index = collectionHolder.find('.delivery-time-item').length;
+
+            // お届け時間設定の新規作成ボタンでお届け時間項目を追加する
             jQuery('.add-another-collection-widget').click(function (e) {
-                // 項目を追加するリスト
-                var list = jQuery(jQuery(this).attr('data-list'));
-                // 'widget-counter' から項目番号を取得
-                var counter = list.data('widget-counter') | list.children().length;
-                // できない場合はリストの個数を項目番号として使用
-                if (!counter) { counter = list.children().length; }
 
-                // 'data-prototype' からプロトタイプを取得
-                var newWidget = list.attr('data-prototype');
-                // "__name__" を項目番号で置換
-                newWidget = newWidget.replace(/__name__/g, counter);
-                // 項目番号をインクリメント
-                counter++;
-                // 項目が削除されたときのために項目番号を保存しておく
-                list.data(' widget-counter', counter);
+                // 追加するお届け時間名を取得
+                var deliveryTimeName = $('#add-delivery-time-value').val();
 
-                // テンプレートを作成してリストに追加
-                var newElem = jQuery(list.attr('data-widget-tags')).html(newWidget);
-                newElem.appendTo(list);
+                if (deliveryTimeName == '') {
+                    return;
+                }
+
+                var prototype = collectionHolder.data('prototype');
+
+                var newForm = prototype.replace(/__name__/g, index);
+                newForm = newForm.replace(/__value__/g, deliveryTimeName);
+
+                // 要素を追加
+                $('#creator-fields').append(newForm);
+
+                // お届け時間名を入れる
+                var inputId = '#delivery_delivery_times_' + index + '_delivery_time';
+                $(inputId).val(deliveryTimeName);
+
+                // 入力欄を初期化
+                $('#add-delivery-time-value').val('');
+
+                // 要素数をインクリメント
+                index++;
             });
         });
     </script>
+
 {% endblock %}

@@ -1,0 +1,20 @@
+
+
+<dl>
+    <dt>名前</dt>
+    <dd>
+      <div class="ec-halfInput{{ has_errors(form.name, form.name) ? ' error'}}">
+          {{ form_widget(form.name) }}
+          {{ form_errors(form.name) }}
+      </div>
+    </dd>
+</dl>
+<dl>
+    <dt>プロフィール</dt>
+    <dd>
+        <div class="ec-select{{ has_errors(form.info, form.info) ? ' error'}}">
+            {{ form_widget(form.info, { 'attr': { 'placeholder': "クリエーターのプロフィールをご記入ください。" }}) }}
+            {{ form_errors(form.info) }}
+        </div>
+    </dd>
+</dl>
