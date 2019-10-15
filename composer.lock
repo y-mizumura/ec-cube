@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d6d6f4d88739519c70865c775e98869e",
+    "content-hash": "af8e19123147cad4c053f0c2bd5e4202",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -1668,30 +1668,6 @@
                 "productivity"
             ],
             "time": "2018-07-27T15:41:37+00:00"
-        },
-        {
-            "name": "ec-cube/Coupon4",
-            "version": "4.0.4",
-            "dist": {
-                "type": "tar",
-                "url": "https://package-api.ec-cube.net/ec-cube/Coupon4/4.0.4/Coupon4-4.0.4.tgz"
-            },
-            "require": {
-                "ec-cube/plugin-installer": "~0.0.4"
-            },
-            "type": "eccube-plugin",
-            "extra": {
-                "code": "Coupon4",
-                "id": 1923
-            },
-            "description": "Coupon Plugin for EC-CUBE4",
-            "transport-options": {
-                "http": {
-                    "header": [
-                        "X-ECCUBE-KEY: IRhWtOtgwGkl2dhWqWOU4OwMu2NKMnzaKKxbnMqU"
-                    ]
-                }
-            }
         },
         {
             "name": "ec-cube/plugin-installer",
