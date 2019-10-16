@@ -76,7 +76,7 @@ class ExhibitorType extends AbstractType
                 'choices' => [
                         'クリエーター' => '＜クリエーター＞',
                         'ギャラリーオーナー' => '＜ギャラリーオーナー＞',
-                        'その他団体' => '＜その他団体＞'
+                        'その他' => '＜その他＞'
                     ],
                 'constraints' => [
                         new Assert\NotBlank()

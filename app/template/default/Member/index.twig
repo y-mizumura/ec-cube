@@ -106,7 +106,7 @@
                             {{ include('Member/creator_prototype.twig', {'form': child}) }}
                         {% endfor %}
                     </div>
-                    <div data-hidden-target class="ec-registerRole__actions">
+                    <div class="ec-registerRole__actions">
                         <div class="ec-off4Grid">
                             <div class="ec-off4Grid__cell">
                                 <button type="button" class="ec-blockBtn--cancel add-another-collection-widget" data-list="#creator-fields">＋クリエーター情報を追加する</button>
@@ -127,31 +127,36 @@
     <script>
         jQuery(document).ready(function () {
             var collectionHolder = $('#creator-fields');
-            var index = collectionHolder.find('#creator').length + 1;
-            
-            // 初期状態で1件表示
-            append_prototype('');
-            
-            const result = data('hidden-target');
-            console.log( result );
+            var index = collectionHolder.find('.delivery-time-item').length;
 
             // お届け時間設定の新規作成ボタンでお届け時間項目を追加する
             jQuery('.add-another-collection-widget').click(function (e) {
-                append_prototype('data-hidden-target');
-            });
-            
-            function append_prototype(datatype) {
-                // フィールド作成（プロトタイプより取得）
+
+                // 追加するお届け時間名を取得
+                var deliveryTimeName = $('#add-delivery-time-value').val();
+
+                if (deliveryTimeName == '') {
+                    return;
+                }
+
                 var prototype = collectionHolder.data('prototype');
-                prototype = prototype.replace(/__ID__/g, index);
-                prototype = prototype.replace(/__DATA__/g, datatype);
+
+                var newForm = prototype.replace(/__name__/g, index);
+                newForm = newForm.replace(/__value__/g, deliveryTimeName);
 
                 // 要素を追加
-                $('#creator-fields').append(prototype);
+                $('#creator-fields').append(newForm);
+
+                // お届け時間名を入れる
+                var inputId = '#delivery_delivery_times_' + index + '_delivery_time';
+                $(inputId).val(deliveryTimeName);
+
+                // 入力欄を初期化
+                $('#add-delivery-time-value').val('');
 
                 // 要素数をインクリメント
                 index++;
-            }
+            });
         });
     </script>
 
