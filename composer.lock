@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "88f0068d67d51e28078cf25ca541e669",
+    "content-hash": "e1f908f1c78d9fd38c54bb178ed86861",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -1669,6 +1669,30 @@
                 "productivity"
             ],
             "time": "2018-07-27T15:41:37+00:00"
+        },
+        {
+            "name": "ec-cube/YamatoPayment4",
+            "version": "1.1.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://package-api.ec-cube.net/ec-cube/YamatoPayment4/1.1.0/YamatoPayment4-1.1.0.tgz"
+            },
+            "require": {
+                "ec-cube/plugin-installer": "~0.0.3"
+            },
+            "type": "eccube-plugin",
+            "extra": {
+                "code": "YamatoPayment4",
+                "id": 1754
+            },
+            "description": "クロネコヤマト　カード・後払い一体型決済サービス",
+            "transport-options": {
+                "http": {
+                    "header": [
+                        "X-ECCUBE-KEY: 6jn8lC95a3kuhOdkr4ZGO6ypRRbfC9oHPRNZhWKL"
+                    ]
+                }
+            }
         },
         {
             "name": "ec-cube/plugin-installer",
@@ -5080,6 +5104,12 @@
                 "type": "git",
                 "url": "https://github.com/symfony/lts.git",
                 "reference": "3a4e88df038e3197e6b66d091d2495fd7d255c0b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/lts/zipball/3a4e88df038e3197e6b66d091d2495fd7d255c0b",
+                "reference": "3a4e88df038e3197e6b66d091d2495fd7d255c0b",
+                "shasum": ""
             },
             "conflict": {
                 "symfony/asset": ">=4",
